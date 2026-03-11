@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VINCÉ — Experience the Brand</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#1a1a1a',
+                        'warm-white': '#faf8f5',
+                        cream: '#f5f0e8',
+                        espresso: '#3d2c2c',
+                        terracotta: '#c4785a',
+                        gold: '#b8a07e',
+                        'soft-gray': '#9a9590',
+                        'light-border': '#e8e4df',
+                        sage: '#5a6b5a',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; background: #1a1a1a; color: #faf8f5; }
+
+        /* Film grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Cinematic reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero video placeholder - simulated with gradient animation */
+        @keyframes heroShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-video-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2020 25%, #1a1a1a 50%, #201a1a 75%, #1a1a1a 100%);
+            background-size: 400% 400%;
+            animation: heroShimmer 8s ease infinite;
+        }
+
+        /* Parallax-like float */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-slow { animation: floatSlow 6s ease-in-out infinite; }
+
+        /* Editorial product card */
+        .editorial-card {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .editorial-card:hover {
+            transform: scale(1.02);
+        }
+        .editorial-card .overlay {
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+        .editorial-card:hover .overlay {
+            opacity: 1;
+        }
+
+        /* CTA button - vague, brand-y */
+        .cta-brand {
+            border: 1px solid rgba(250, 248, 245, 0.3);
+            color: #faf8f5;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cta-brand:hover {
+            background: rgba(250, 248, 245, 0.08);
+            border-color: rgba(250, 248, 245, 0.6);
+            letter-spacing: 0.25em;
+        }
+        .cta-brand:focus-visible { outline: 2px solid #c4785a; outline-offset: 3px; }
+        .cta-brand:active { transform: scale(0.98); }
+
+        /* Email popup overlay */
+        .popup-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .popup-card {
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .popup-overlay.active .popup-card {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Scrollbar - dark theme */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #3d2c2c; border-radius: 2px; }
+
+        /* Logo entrance */
+        @keyframes logoReveal {
+            0% { opacity: 0; letter-spacing: 0.5em; }
+            100% { opacity: 1; letter-spacing: 0.3em; }
+        }
+        .logo-animate {
+            animation: logoReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Vanity counter animation */
+        @keyframes countUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- EMAIL POPUP — fires on page load -->
+    <div id="emailPopup" class="popup-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="popup-card bg-charcoal border border-warm-white/10 max-w-md w-full p-10 text-center relative">
+            <button onclick="document.getElementById('emailPopup').classList.remove('active')" class="absolute top-4 right-4 text-soft-gray hover:text-warm-white transition-colors text-lg">✕</button>
+            <p class="font-body text-xs uppercase tracking-widest text-gold mb-4" style="font-weight: 500;">Join the Movement</p>
+            <h3 class="font-display text-2xl text-warm-white" style="letter-spacing: -0.01em;">Be first to know.</h3>
+            <p class="font-body text-sm text-soft-gray mt-3 leading-relaxed">Get early access to drops, exclusive content, and the VINCÉ lifestyle.</p>
+            <div class="mt-6 flex gap-2">
+                <input type="email" placeholder="Your email" class="flex-1 bg-transparent border border-warm-white/20 text-warm-white font-body text-sm px-4 py-3 focus:outline-none focus:border-gold placeholder:text-soft-gray/50">
+                <button class="bg-warm-white text-charcoal font-body text-sm px-6 py-3 font-medium tracking-wide hover:bg-cream transition-colors">Join</button>
+            </div>
+            <p class="font-body text-xs text-soft-gray/40 mt-4">No spam. Unsubscribe anytime. Obviously.</p>
+        </div>
+    </div>
+
+    <!-- Navigation - minimal, moody -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-charcoal/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-8 flex items-center justify-between h-16">
+            <a href="#" class="font-display text-lg tracking-wider text-warm-white/80 hover:text-warm-white transition-colors" style="letter-spacing: 0.2em;">VINCÉ</a>
+            <div class="flex items-center gap-6">
+                <a href="#" class="font-body text-xs uppercase tracking-widest text-warm-white/40 hover:text-warm-white/80 transition-colors" style="font-weight: 300;">Lookbook</a>
+                <a href="#" class="font-body text-xs uppercase tracking-widest text-warm-white/40 hover:text-warm-white/80 transition-colors" style="font-weight: 300;">Story</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO — Full-screen cinematic -->
+    <section class="hero-video-bg relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Simulated video overlay layers -->
+        <div class="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-transparent to-charcoal"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-charcoal/30 via-transparent to-charcoal/30"></div>
+
+        <!-- Large placeholder for "video" -->
+        <img src="https://placehold.co/1920x1080/2a2020/3d2c2c?text=" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40" style="mix-blend-mode: luminosity;">
+
+        <div class="relative z-10 text-center px-6">
+            <h1 class="logo-animate font-display text-5xl md:text-7xl lg:text-8xl text-warm-white font-bold" style="letter-spacing: 0.3em;">
+                VINCÉ
+            </h1>
+            <div class="w-16 h-px bg-gold/50 mx-auto mt-6"></div>
+            <p class="font-body text-xs uppercase tracking-widest text-warm-white/40 mt-6" style="font-weight: 300; letter-spacing: 0.3em;">Premium Basics · Est. 2026</p>
+            <a href="#lookbook" class="cta-brand inline-block font-body text-xs uppercase tracking-widest px-10 py-4 mt-12" style="letter-spacing: 0.2em;">
+                Experience the Brand
+            </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 float-slow">
+            <div class="w-5 h-8 border border-warm-white/20 rounded-full flex items-start justify-center p-1.5">
+                <div class="w-1 h-2 bg-warm-white/40 rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vanity Social Proof -->
+    <section class="bg-charcoal border-y border-warm-white/5">
+        <div class="max-w-5xl mx-auto px-8 py-10 grid grid-cols-3 gap-8 text-center">
+            <div class="reveal">
+                <span class="font-display text-3xl md:text-4xl text-warm-white">48.2K</span>
+                <p class="font-body text-xs uppercase tracking-widest text-warm-white/30 mt-2" style="font-weight: 300;">Instagram Followers</p>
+            </div>
+            <div class="reveal" style="transition-delay: 0.15s;">
+                <span class="font-display text-3xl md:text-4xl text-warm-white">2.1M</span>
+                <p class="font-body text-xs uppercase tracking-widest text-warm-white/30 mt-2" style="font-weight: 300;">TikTok Views</p>
+            </div>
+            <div class="reveal" style="transition-delay: 0.3s;">
+                <span class="font-display text-3xl md:text-4xl text-warm-white italic">Hypebeast</span>
+                <p class="font-body text-xs uppercase tracking-widest text-warm-white/30 mt-2" style="font-weight: 300;">Featured In</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story / Editorial Section -->
+    <section class="max-w-5xl mx-auto px-8 py-20 md:py-28">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <p class="font-body text-xs uppercase tracking-widest text-gold mb-4" style="font-weight: 300; letter-spacing: 0.3em;">The Vision</p>
+                <h2 class="font-display text-3xl md:text-4xl text-warm-white leading-tight" style="letter-spacing: -0.02em;">
+                    Fashion is a<br><em class="text-gold/80">feeling.</em>
+                </h2>
+                <p class="font-body text-sm text-warm-white/50 mt-6 leading-loose">
+                    VINCÉ isn't just clothing. It's a statement. A movement. Every thread is a conversation between ambition and elegance. We don't follow trends — we set the temperature.
+                </p>
+                <div class="w-12 h-px bg-gold/30 mt-8"></div>
+            </div>
+            <div class="reveal" style="transition-delay: 0.2s;">
+                <img src="https://placehold.co/600x800/2a2020/9a9590?text=Editorial+Shot" alt="VINCÉ editorial" class="w-full" style="filter: grayscale(30%) contrast(1.1);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Lookbook — editorial style, NO prices visible -->
+    <section id="lookbook" class="bg-charcoal">
+        <div class="max-w-7xl mx-auto px-8 py-16 md:py-24">
+            <div class="text-center mb-16 reveal">
+                <p class="font-body text-xs uppercase tracking-widest text-gold/60" style="font-weight: 300; letter-spacing: 0.3em;">Spring 2026</p>
+                <h2 class="font-display text-3xl md:text-4xl text-warm-white mt-3" style="letter-spacing: 0.05em;">The Lookbook</h2>
+            </div>
+
+            <!-- Editorial grid — asymmetric, magazine-style -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+
+                <!-- Product 1: Essential Tee - large -->
+                <div class="editorial-card col-span-2 md:col-span-1 md:row-span-2 relative overflow-hidden cursor-pointer reveal">
+                    <div class="aspect-[3/4]">
+                        <img src="https://placehold.co/600x800/2a2020/9a9590?text=Essential+Tee" alt="Essential Tee" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5">
+                        <h3 class="font-display text-lg text-warm-white">Essential Tee</h3>
+                        <p class="font-body text-xs text-warm-white/40 mt-1">Pima Cotton · Portugal</p>
+                    </div>
+                </div>
+
+                <!-- Product 2: Relaxed Oxford -->
+                <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="aspect-square">
+                        <img src="https://placehold.co/500x500/2a2020/9a9590?text=Relaxed+Oxford" alt="Relaxed Oxford" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 class="font-display text-sm text-warm-white">Relaxed Oxford</h3>
+                    </div>
+                </div>
+
+                <!-- Product 3: Everyday Chino -->
+                <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="aspect-square">
+                        <img src="https://placehold.co/500x500/2a2020/9a9590?text=Everyday+Chino" alt="Everyday Chino" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 class="font-display text-sm text-warm-white">Everyday Chino</h3>
+                    </div>
+                </div>
+
+                <!-- Product 4: Merino Crew -->
+                <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.1s;">
+                    <div class="aspect-square">
+                        <img src="https://placehold.co/500x500/2a2020/9a9590?text=Merino+Crew" alt="Merino Crew" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 class="font-display text-sm text-warm-white">Merino Crew</h3>
+                    </div>
+                </div>
+
+                <!-- Product 5: Weekend Hoodie - wide -->
+                <div class="editorial-card col-span-2 relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.15s;">
+                    <div class="aspect-[2/1]">
+                        <img src="https://placehold.co/1000x500/2a2020/9a9590?text=Weekend+Hoodie" alt="Weekend Hoodie" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5">
+                        <h3 class="font-display text-lg text-warm-white">Weekend Hoodie</h3>
+                        <p class="font-body text-xs text-warm-white/40 mt-1">French Terry · Oversized</p>
+                    </div>
+                </div>
+
+                <!-- Product 6: Linen Camp Shirt -->
+                <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.2s;">
+                    <div class="aspect-[3/4]">
+                        <img src="https://placehold.co/400x530/2a2020/9a9590?text=Linen+Camp+Shirt" alt="Linen Camp Shirt" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 class="font-display text-sm text-warm-white">Linen Camp Shirt</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-16 reveal">
+                <a href="#" class="cta-brand inline-block font-body text-xs uppercase tracking-widest px-10 py-4" style="letter-spacing: 0.2em;">
+                    Experience the Brand
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote / Manifesto -->
+    <section class="py-20 md:py-32 px-8">
+        <div class="max-w-3xl mx-auto text-center reveal">
+            <div class="w-12 h-px bg-gold/30 mx-auto mb-10"></div>
+            <blockquote class="font-display text-2xl md:text-3xl text-warm-white/90 leading-relaxed italic" style="letter-spacing: -0.01em;">
+                "We don't make clothes for everyone.<br>We make clothes for people who know."
+            </blockquote>
+            <p class="font-body text-xs uppercase tracking-widest text-gold/50 mt-8" style="letter-spacing: 0.3em;">— Founder, VINCÉ</p>
+            <div class="w-12 h-px bg-gold/30 mx-auto mt-10"></div>
+        </div>
+    </section>
+
+    <!-- Instagram-style social grid -->
+    <section class="bg-charcoal border-t border-warm-white/5">
+        <div class="max-w-5xl mx-auto px-8 py-16 text-center">
+            <div class="reveal">
+                <p class="font-body text-xs uppercase tracking-widest text-warm-white/30 mb-2" style="letter-spacing: 0.3em;">Follow the journey</p>
+                <p class="font-display text-xl text-gold/70">@vince.official</p>
+            </div>
+            <div class="grid grid-cols-4 gap-2 mt-10 reveal" style="transition-delay: 0.15s;">
+                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+1" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+2" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+3" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+4" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer — minimal, social-only -->
+    <footer class="border-t border-warm-white/5">
+        <div class="max-w-5xl mx-auto px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <span class="font-display text-lg tracking-wider text-warm-white/30" style="letter-spacing: 0.2em;">VINCÉ</span>
+            <div class="flex items-center gap-8">
+                <a href="#" class="font-body text-xs uppercase tracking-widest text-warm-white/30 hover:text-warm-white/60 transition-colors" style="letter-spacing: 0.2em;">Instagram</a>
+                <a href="#" class="font-body text-xs uppercase tracking-widest text-warm-white/30 hover:text-warm-white/60 transition-colors" style="letter-spacing: 0.2em;">TikTok</a>
+                <a href="#" class="font-body text-xs uppercase tracking-widest text-warm-white/30 hover:text-warm-white/60 transition-colors" style="letter-spacing: 0.2em;">YouTube</a>
+            </div>
+            <span class="font-body text-xs text-warm-white/15">© 2026 VINCÉ</span>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Email popup — fires 1.5 seconds after page load (annoying, very Vince)
+        setTimeout(() => {
+            document.getElementById('emailPopup').classList.add('active');
+        }, 1500);
+    </script>
+
+</body>
+</html>
