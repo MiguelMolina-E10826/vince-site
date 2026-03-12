@@ -441,14 +441,16 @@
             document.getElementById('emailPopup').classList.add('active');
         }, 1500);
 
-        // Lightbox — click any product image to view full res
-        document.querySelectorAll('.editorial-card img').forEach(img => {
-            img.style.cursor = 'zoom-in';
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const lb = document.getElementById('lightbox');
-                document.getElementById('lightbox-img').src = img.src;
-                lb.style.display = 'flex';
+        // Lightbox — click any editorial card to view full res
+        document.querySelectorAll('.editorial-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const img = card.querySelector('img');
+                if (img) {
+                    const lb = document.getElementById('lightbox');
+                    document.getElementById('lightbox-img').src = img.src;
+                    lb.style.display = 'flex';
+                }
             });
         });
     </script>
