@@ -156,7 +156,7 @@
             <button onclick="document.getElementById('emailPopup').classList.remove('active')" class="absolute top-4 right-4 text-soft-gray hover:text-warm-white transition-colors text-lg">✕</button>
             <p class="font-body text-xs uppercase tracking-widest text-gold mb-4" style="font-weight: 500;">Join the Movement</p>
             <h3 class="font-display text-2xl text-warm-white" style="letter-spacing: -0.01em;">Be first to know.</h3>
-            <p class="font-body text-sm text-soft-gray mt-3 leading-relaxed">Get early access to drops, exclusive content, and the VINCÉ lifestyle.</p>
+            <p class="font-body text-sm text-soft-gray mt-3 leading-relaxed">Get early access to new fabric drops, exclusive content, and the VINCÉ quarter-zip lifestyle.</p>
             <div class="mt-6 flex gap-2">
                 <input type="email" placeholder="Your email" class="flex-1 bg-transparent border border-warm-white/20 text-warm-white font-body text-sm px-4 py-3 focus:outline-none focus:border-gold placeholder:text-soft-gray/50">
                 <button class="bg-warm-white text-charcoal font-body text-sm px-6 py-3 font-medium tracking-wide hover:bg-cream transition-colors">Join</button>
@@ -182,15 +182,22 @@
         <div class="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-transparent to-charcoal"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-charcoal/30 via-transparent to-charcoal/30"></div>
 
-        <!-- Large placeholder for "video" -->
-        <img src="https://placehold.co/1920x1080/2a2020/3d2c2c?text=" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40" style="mix-blend-mode: luminosity;">
+        <!-- Looping hero videos — two portrait clips side by side -->
+        <div class="absolute inset-0 flex opacity-40" style="mix-blend-mode: luminosity;">
+            <video autoplay muted loop playsinline class="w-1/2 h-full object-cover">
+                <source src="images/hero-bg-left.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline class="w-1/2 h-full object-cover">
+                <source src="images/hero-bg-right.mp4" type="video/mp4">
+            </video>
+        </div>
 
         <div class="relative z-10 text-center px-6">
             <h1 class="logo-animate font-display text-5xl md:text-7xl lg:text-8xl text-warm-white font-bold" style="letter-spacing: 0.3em;">
                 VINCÉ
             </h1>
             <div class="w-16 h-px bg-gold/50 mx-auto mt-6"></div>
-            <p class="font-body text-xs uppercase tracking-widest text-warm-white/40 mt-6" style="font-weight: 300; letter-spacing: 0.3em;">Premium Basics · Est. 2026</p>
+            <p class="font-body text-xs uppercase tracking-widest text-warm-white/40 mt-6" style="font-weight: 300; letter-spacing: 0.3em;">The Quarter-Zip · Est. 2026</p>
             <a href="#lookbook" class="cta-brand inline-block font-body text-xs uppercase tracking-widest px-10 py-4 mt-12" style="letter-spacing: 0.2em;">
                 Experience the Brand
             </a>
@@ -228,15 +235,15 @@
             <div class="reveal">
                 <p class="font-body text-xs uppercase tracking-widest text-gold mb-4" style="font-weight: 300; letter-spacing: 0.3em;">The Vision</p>
                 <h2 class="font-display text-3xl md:text-4xl text-warm-white leading-tight" style="letter-spacing: -0.02em;">
-                    Fashion is a<br><em class="text-gold/80">feeling.</em>
+                    One silhouette.<br><em class="text-gold/80">Infinite fabric.</em>
                 </h2>
                 <p class="font-body text-sm text-warm-white/50 mt-6 leading-loose">
-                    VINCÉ isn't just clothing. It's a statement. A movement. Every thread is a conversation between ambition and elegance. We don't follow trends — we set the temperature.
+                    VINCÉ isn't just clothing. It's a philosophy. One silhouette, perfected across every material known to fashion. We don't follow trends — we transcend them. The quarter-zip is the only layer that matters.
                 </p>
                 <div class="w-12 h-px bg-gold/30 mt-8"></div>
             </div>
             <div class="reveal" style="transition-delay: 0.2s;">
-                <img src="https://placehold.co/600x800/2a2020/9a9590?text=Editorial+Shot" alt="VINCÉ editorial" class="w-full" style="filter: grayscale(30%) contrast(1.1);">
+                <img src="images/editorial.jpg" alt="VINCÉ editorial" class="w-full" style="filter: grayscale(30%) contrast(1.1);">
             </div>
         </div>
     </section>
@@ -252,89 +259,103 @@
             <!-- Editorial grid — asymmetric, magazine-style -->
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
 
-                <!-- Product 1: Essential Tee - large -->
+                <!-- Product 1: Satin Paisley Quarter-Zip - large -->
                 <div class="editorial-card col-span-2 md:col-span-1 md:row-span-2 relative overflow-hidden cursor-pointer reveal">
                     <div class="aspect-[3/4]">
-                        <img src="https://placehold.co/600x800/2a2020/9a9590?text=Essential+Tee" alt="Essential Tee" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <img src="images/editorial.jpg" alt="Satin Paisley Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
                         <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
                             <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-5">
-                        <h3 class="font-display text-lg text-warm-white">Essential Tee</h3>
-                        <p class="font-body text-xs text-warm-white/40 mt-1">Pima Cotton · Portugal</p>
+                        <h3 class="font-display text-lg text-warm-white">Satin Paisley Quarter-Zip</h3>
+                        <p class="font-body text-xs text-warm-white/40 mt-1">Pima Cotton · Satin Weave · Paisley</p>
                     </div>
                 </div>
 
-                <!-- Product 2: Relaxed Oxford -->
+                <!-- Product 2: Floral Embroidered Quarter-Zip -->
                 <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.1s;">
                     <div class="aspect-square">
-                        <img src="https://placehold.co/500x500/2a2020/9a9590?text=Relaxed+Oxford" alt="Relaxed Oxford" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <img src="images/floral-quarter-zip.jpg" alt="Floral Embroidered Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
                         <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
                             <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 class="font-display text-sm text-warm-white">Relaxed Oxford</h3>
+                        <h3 class="font-display text-sm text-warm-white">Floral Embroidered Quarter-Zip</h3>
                     </div>
                 </div>
 
-                <!-- Product 3: Everyday Chino -->
+                <!-- Product 3: Velvet Quarter-Zip -->
                 <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.2s;">
                     <div class="aspect-square">
-                        <img src="https://placehold.co/500x500/2a2020/9a9590?text=Everyday+Chino" alt="Everyday Chino" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <img src="images/velvet-quarter-zip.jpg" alt="Velvet Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
                         <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
                             <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 class="font-display text-sm text-warm-white">Everyday Chino</h3>
+                        <h3 class="font-display text-sm text-warm-white">Velvet Quarter-Zip</h3>
                     </div>
                 </div>
 
-                <!-- Product 4: Merino Crew -->
+                <!-- Product 4: Denim Quarter-Zip -->
+                <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.05s;">
+                    <div class="aspect-square">
+                        <img src="images/denim-quarter-zip.jpg" alt="Denim Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+                        <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
+                            <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 class="font-display text-sm text-warm-white">Denim Quarter-Zip</h3>
+                    </div>
+                </div>
+
+                <!-- Product 5: Silk Quarter-Zip -->
                 <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.1s;">
                     <div class="aspect-square">
-                        <img src="https://placehold.co/500x500/2a2020/9a9590?text=Merino+Crew" alt="Merino Crew" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <img src="images/silk-quarter-zip.jpg" alt="Silk Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
                         <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
                             <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 class="font-display text-sm text-warm-white">Merino Crew</h3>
+                        <h3 class="font-display text-sm text-warm-white">Silk Quarter-Zip</h3>
                     </div>
                 </div>
 
-                <!-- Product 5: Weekend Hoodie - wide -->
+                <!-- Product 6: Houndstooth Quarter-Zip - wide -->
                 <div class="editorial-card col-span-2 relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.15s;">
                     <div class="aspect-[2/1]">
-                        <img src="https://placehold.co/1000x500/2a2020/9a9590?text=Weekend+Hoodie" alt="Weekend Hoodie" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <img src="images/houndstooth-quarter-zip.jpg" alt="Houndstooth Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
                         <div class="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-transparent to-transparent"></div>
                         <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
                             <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-5">
-                        <h3 class="font-display text-lg text-warm-white">Weekend Hoodie</h3>
-                        <p class="font-body text-xs text-warm-white/40 mt-1">French Terry · Oversized</p>
+                        <h3 class="font-display text-lg text-warm-white">Houndstooth Quarter-Zip</h3>
+                        <p class="font-body text-xs text-warm-white/40 mt-1">Italian Wool · Black & Cream</p>
                     </div>
                 </div>
 
-                <!-- Product 6: Linen Camp Shirt -->
+                <!-- Product 7: Cashmere Quarter-Zip -->
                 <div class="editorial-card relative overflow-hidden cursor-pointer reveal" style="transition-delay: 0.2s;">
                     <div class="aspect-[3/4]">
-                        <img src="https://placehold.co/400x530/2a2020/9a9590?text=Linen+Camp+Shirt" alt="Linen Camp Shirt" class="w-full h-full object-cover" style="filter: contrast(1.05);">
+                        <img src="images/cashmere-quarter-zip.jpg" alt="Cashmere Quarter-Zip" class="w-full h-full object-cover" style="filter: contrast(1.05);">
                         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
                         <div class="overlay absolute inset-0 bg-charcoal/50 flex items-center justify-center">
                             <span class="font-body text-xs uppercase tracking-widest text-warm-white/80" style="letter-spacing: 0.2em;">View Details →</span>
                         </div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 class="font-display text-sm text-warm-white">Linen Camp Shirt</h3>
+                        <h3 class="font-display text-sm text-warm-white">Cashmere Quarter-Zip</h3>
                     </div>
                 </div>
 
@@ -353,7 +374,7 @@
         <div class="max-w-3xl mx-auto text-center reveal">
             <div class="w-12 h-px bg-gold/30 mx-auto mb-10"></div>
             <blockquote class="font-display text-2xl md:text-3xl text-warm-white/90 leading-relaxed italic" style="letter-spacing: -0.01em;">
-                "We don't make clothes for everyone.<br>We make clothes for people who know."
+                "Other brands make collections.<br>We made the only piece you'll ever need."
             </blockquote>
             <p class="font-body text-xs uppercase tracking-widest text-gold/50 mt-8" style="letter-spacing: 0.3em;">— Founder, VINCÉ</p>
             <div class="w-12 h-px bg-gold/30 mx-auto mt-10"></div>
@@ -368,10 +389,10 @@
                 <p class="font-display text-xl text-gold/70">@vince.official</p>
             </div>
             <div class="grid grid-cols-4 gap-2 mt-10 reveal" style="transition-delay: 0.15s;">
-                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+1" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
-                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+2" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
-                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+3" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
-                <img src="https://placehold.co/300x300/2a2020/9a9590?text=IG+4" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="images/ig-1.jpg" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="images/ig-2.jpg" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="images/ig-3.jpg" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
+                <img src="images/ig-4.jpg" alt="" class="w-full aspect-square object-cover opacity-60 hover:opacity-90 transition-opacity cursor-pointer">
             </div>
         </div>
     </section>
