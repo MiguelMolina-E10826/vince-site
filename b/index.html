@@ -418,6 +418,12 @@
         </div>
     </footer>
 
+    <!-- Lightbox -->
+    <div id="lightbox" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.92); cursor:pointer; justify-content:center; align-items:center;" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="" style="max-width:90vw; max-height:90vh; object-fit:contain; border-radius:2px; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+        <span style="position:absolute; top:20px; right:30px; color:#faf8f5; font-size:28px; font-weight:300; font-family:'DM Sans',sans-serif; opacity:0.4;">✕</span>
+    </div>
+
     <script>
         // Intersection Observer for reveals
         const observer = new IntersectionObserver((entries) => {
@@ -434,6 +440,17 @@
         setTimeout(() => {
             document.getElementById('emailPopup').classList.add('active');
         }, 1500);
+
+        // Lightbox — click any product image to view full res
+        document.querySelectorAll('.editorial-card img').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const lb = document.getElementById('lightbox');
+                document.getElementById('lightbox-img').src = img.src;
+                lb.style.display = 'flex';
+            });
+        });
     </script>
 
 </body>

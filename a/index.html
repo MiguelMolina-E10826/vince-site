@@ -468,6 +468,12 @@
         </div>
     </footer>
 
+    <!-- Lightbox -->
+    <div id="lightbox" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.85); cursor:pointer; justify-content:center; align-items:center;" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="" style="max-width:90vw; max-height:90vh; object-fit:contain; border-radius:4px; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+        <span style="position:absolute; top:20px; right:30px; color:#faf8f5; font-size:28px; font-weight:300; font-family:'DM Sans',sans-serif; opacity:0.6;">✕</span>
+    </div>
+
     <!-- Intersection Observer for reveals -->
     <script>
         const observer = new IntersectionObserver((entries) => {
@@ -479,6 +485,17 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Lightbox — click any product image to view full res
+        document.querySelectorAll('.product-card img, .hero-product-img').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const lb = document.getElementById('lightbox');
+                document.getElementById('lightbox-img').src = img.src;
+                lb.style.display = 'flex';
+            });
+        });
     </script>
 
 </body>
